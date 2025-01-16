@@ -1,6 +1,6 @@
 namespace all_spice.Models;
 
-public class Account
+public class Account : Profile
 {
   // public string Id { get; set; }
   // public string Name { get; set; }

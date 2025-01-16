@@ -14,8 +14,10 @@ CREATE TABLE recipes(
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   title TINYTEXT NOT NULL,
   instructions TEXT,
-  img TEXT,
-  catagory ENUM('breakfast', 'lunch', 'dinner', 'snack','dessert'),
+  img TEXT NOT NULL,
+  category ENUM('breakfast', 'lunch', 'dinner', 'snack','dessert') NOT NULL,
   creator_id VARCHAR(255) NOT NULL,
   FOREIGN KEY (creator_id) REFERENCES accounts(id) ON DELETE CASCADE
 );
+
+DROP Table recipes;
