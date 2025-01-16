@@ -45,4 +45,14 @@ public class RecipesService
     _recipesRepository.UpdateRecipe(recipe);
     return recipe;
   }
+
+  internal string DeleteRecipe(int recipeId, string userId)
+  {
+    Recipe recipe = GetRecipeById(recipeId);
+
+    if (recipe.CreatorId != userId) throw new Exception("UH UH UH, YOU DIDNT SAY THE MAGIC WORD");
+
+    _recipesRepository.DeleteRecipe(recipeId);
+    return "Recipe was extinquished";
+  }
 }
