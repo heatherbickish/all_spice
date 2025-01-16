@@ -1,5 +1,6 @@
 
 
+
 namespace all_spice.Services;
 
 public class RecipesService
@@ -22,5 +23,12 @@ public class RecipesService
   {
     List<Recipe> recipes = _recipesRepository.GetAllRecipes();
     return recipes;
+  }
+
+  internal Recipe GetRecipeById(int recipeId)
+  {
+    Recipe recipe = _recipesRepository.GetRecipeById(recipeId);
+    if (recipe == null) throw new Exception($"Invalid recipe id: {recipeId}");
+    return recipe;
   }
 }
