@@ -31,4 +31,18 @@ public class RecipesService
     if (recipe == null) throw new Exception($"Invalid recipe id: {recipeId}");
     return recipe;
   }
+
+  internal Recipe UpdateRecipe(int recipeId, string userId, Recipe recipeUpdateData)
+  {
+    Recipe recipe = GetRecipeById(recipeId);
+    if (recipe.CreatorId != userId) throw new Exception("NOPE. AINT YOURS BRAH");
+
+    recipe.Title = recipeUpdateData.Title ?? recipe.Title;
+    recipe.Instructions = recipeUpdateData.Instructions ?? recipe.Instructions;
+    recipe.Img = recipeUpdateData.Img ?? recipe.Img;
+    recipe.Category = recipeUpdateData.Category ?? recipe.Category;
+
+    _recipesRepository.UpdateRecipe(recipe);
+    return recipe;
+  }
 }

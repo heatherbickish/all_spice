@@ -1,6 +1,7 @@
 
 
 
+
 namespace all_spice.Repositories;
 
 public class RecipesRepository
@@ -68,5 +69,22 @@ public class RecipesRepository
       return recipe;
     }, new { recipeId }).SingleOrDefault();
     return recipe;
+  }
+
+  internal void UpdateRecipe(Recipe recipeData)
+  {
+    string sql = @"
+      UPDATE recipes
+      SET
+      title =@Title,
+      instructions = @Instructions,
+      img = @Img,
+      category = @Category
+      WHERE id = @Id LIMIT 1;";
+
+    int rowsAffected = _db.Execute(sql, recipeData);
+
+    if (rowsAffected == 0) throw new Exception("UPDATE WAS SUCCESSFUL");
+    if (rowsAffected > 1) throw new Exception("UPDATE WAS TOO SUCCESSFUL");
   }
 }
