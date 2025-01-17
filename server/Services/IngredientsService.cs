@@ -1,3 +1,4 @@
+
 namespace all_spice.Services;
 
 public class IngredientsService
@@ -8,4 +9,10 @@ public class IngredientsService
   }
   private readonly IngredientsRepository _ingredientsRepository;
 
+
+  internal Ingredient CreateIngredient(Ingredient ingredientData)
+  {
+    Ingredient ingredient = _ingredientsRepository.CreateIngredient(ingredientData);
+    return ingredient;
+  }
 }
