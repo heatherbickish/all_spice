@@ -1,5 +1,6 @@
 
 
+
 namespace all_spice.Services;
 
 public class FavoritesService
@@ -21,5 +22,23 @@ public class FavoritesService
   {
     List<FavoriteRecipe> favoriteRecipes = _favoritesRepository.GetMyFavRecipe(userId);
     return favoriteRecipes;
+  }
+
+  private Favorite GetFavById(int favoriteId)
+  {
+    Favorite favorite = _favoritesRepository.GetFavById(favoriteId);
+    if (favorite == null) throw new Exception($"Invalid fav id: {favoriteId}");
+    return favorite;
+  }
+
+  internal string DeleteFav(int favoriteId, string userId)
+  {
+    Favorite favorite = GetFavById(favoriteId);
+
+    if (favorite.AccountId != userId) throw new Exception("STOP FRIEND! CANNOT DO THAT");
+
+    _favoritesRepository.DeleteFav(favoriteId);
+
+    return "No longer favoriting that recipe";
   }
 }

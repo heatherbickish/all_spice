@@ -1,5 +1,7 @@
 
 
+
+
 namespace all_spice.Repositories;
 
 public class FavoritesRepository
@@ -59,5 +61,25 @@ public class FavoritesRepository
 
     return favoriteRecipes;
 
+  }
+
+  internal Favorite GetFavById(int favoriteId)
+  {
+    string sql = "SELECT * FROM favorites WHERE id = @favoriteId;";
+    Favorite favorite = _db.Query<Favorite>(sql, new { favoriteId }).SingleOrDefault();
+    return favorite;
+  }
+
+  internal void DeleteFav(int favoriteId)
+  {
+    string sql = "DELETE FROM favorites WHERE id = @favoriteId;";
+    int rowsAffected = _db.Execute(sql, new { favoriteId });
+
+    switch (rowsAffected)
+    {
+      case 1: return;
+      case 0: throw new Exception("NO ROWS UPDATED");
+      default: throw new Exception($"{rowsAffected} ROWS WERE UPDATED AND THAT WAS TERRIBLE");
+    }
   }
 }
