@@ -39,3 +39,15 @@ recipes.*
 FROM ingredients
 JOIN recipes ON recipes.id = ingredients.recipe_id
 WHERE recipe_id = @recipeId
+
+CREATE TABLE favorites(
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  recipe_id INT NOT NULL,
+  account_id VARCHAR(255) NOT NULL,
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE,
+  FOREIGN KEY (account_id) REFERENCES accounts(id) ON DELETE CASCADE
+);
+
+DROP TABLE favorites;
