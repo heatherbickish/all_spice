@@ -32,3 +32,10 @@ CREATE TABLE ingredients(
   recipe_id INT NOT NULL,
   FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
 );
+
+SELECT 
+ingredients.*,
+recipes.*
+FROM ingredients
+JOIN recipes ON recipes.id = ingredients.recipe_id
+WHERE recipe_id = @recipeId

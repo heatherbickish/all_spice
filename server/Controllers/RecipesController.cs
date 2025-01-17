@@ -1,16 +1,20 @@
+using Microsoft.AspNetCore.Authentication;
+
 namespace all_spice.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 public class RecipesController : ControllerBase
 {
-  public RecipesController(RecipesService recipesService, Auth0Provider auth0Provider)
+  public RecipesController(RecipesService recipesService, Auth0Provider auth0Provider, IngredientsService ingredientsService)
   {
-    _recipesService = recipesService;
     _auth0Provider = auth0Provider;
+    _recipesService = recipesService;
+    _ingredientsService = ingredientsService;
   }
-  private readonly RecipesService _recipesService;
   private readonly Auth0Provider _auth0Provider;
+  private readonly RecipesService _recipesService;
+  private readonly IngredientsService _ingredientsService;
 
 
   [Authorize]
@@ -83,7 +87,7 @@ public class RecipesController : ControllerBase
 
 
   [Authorize]
-  [HttpDelete("{recipeId}")]
+  [HttpDelete("{recipeId}/ingredients")]
   public async Task<ActionResult<string>> DeleteRecipe(int recipeId)
   {
     try
@@ -100,4 +104,18 @@ public class RecipesController : ControllerBase
   }
 
 
+  [HttpGet("{recipeId}/ingredients")]
+  public ActionResult<List<Ingredient>> GetIngredientsByRecipeId(int recipeId)
+  {
+    try
+    {
+      List<Ingredient> ingredients = _ingredientsService.GetIngredientsByRecipeId(recipeId);
+      return Ok(ingredients);
+    }
+    catch (Exception exception)
+    {
+
+      return BadRequest(exception.Message);
+    }
+  }
 }
