@@ -51,3 +51,11 @@ CREATE TABLE favorites(
 );
 
 DROP TABLE favorites;
+
+SELECT 
+      favorites.*, 
+      recipes.*
+      FROM favorites
+      JOIN recipes ON favorites.recipe_id = recipes.id
+      JOIN accounts ON accounts.id = recipes.creator_id
+      WHERE favorites.id = 3;

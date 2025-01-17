@@ -1,11 +1,18 @@
+
 namespace all_spice.Services;
 
 public class FavoritesService
 {
-  public FavoritesService(FavoritesService favoritesService)
+  public FavoritesService(FavoritesRepository favoritesRepository)
   {
-    _favoritesService = favoritesService;
+    _favoritesRepository = favoritesRepository;
   }
-  private readonly FavoritesService _favoritesService;
+  private readonly FavoritesRepository _favoritesRepository;
 
+
+  internal FavoriteRecipe CreateFavorite(Favorite favData)
+  {
+    FavoriteRecipe favorite = _favoritesRepository.CreateFavorite(favData);
+    return favorite;
+  }
 }

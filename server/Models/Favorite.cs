@@ -9,11 +9,11 @@ public class Favorite
   public DateTime UpdatedAt { get; set; }
 }
 
-public class FavoriteProfile : Profile
-{
-  public int FavoriteId { get; set; }
-  public int RecipeId { get; set; }
-}
+// public class FavoriteProfile : Profile
+// {
+//   public int FavoriteId { get; set; }
+//   public int RecipeId { get; set; }
+// }
 
 public class FavoriteRecipe : Recipe
 {
