@@ -37,7 +37,6 @@ const recipe = computed(() => AppState.activeRecipe)
               </div>
             </div>
             <div>
-
             </div>
           </div>
         </div>

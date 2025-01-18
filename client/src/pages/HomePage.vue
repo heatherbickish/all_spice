@@ -8,7 +8,6 @@ import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
 import { computed, onMounted, ref } from "vue";
 
-// const recipes = computed(() => AppState.recipes)
 const recipes = computed(() => {
   if (activeFilterCategory.value == 'home') return AppState.recipes
   return AppState.recipes.filter(recipe => recipe.category == activeFilterCategory.value)
@@ -20,7 +19,6 @@ const categories = [
   { name: 'home' },
   { name: 'my recipes' },
   { name: 'favorites' }
-
 ]
 
 onMounted(() => {
@@ -65,13 +63,11 @@ async function getAllRecipes() {
   <!-- SECTION  menu buttons -->
   <section class="container">
     <div class="row justify-content-center">
-      <div class="col-md-4 text-center menu-box">
-        <div class="bg-light rounded py-2 shadow">
+      <div class="col-md-5 text-center menu-box">
+        <div class="bg-light rounded py-2 shadow d-flex justify-content-around">
           <button @click="activeFilterCategory = category.name" v-for="category in categories"
-            :key="'filter-' + category.name" class="btn text-success fs-5 selectable text-capitalize">{{ category.name
+            :key="'filter-' + category.name" class="btn text-secondary fs-5 selectable text-capitalize">{{ category.name
             }}</button>
-          <!-- <button class="btn text-success fs-5 selectable">My Recipes</button>
-          <button class="btn text-success fs-5 selectable">Favorites</button> -->
         </div>
       </div>
     </div>
@@ -108,6 +104,15 @@ h5 {
   background-position: center;
   border-radius: 5px;
 }
+
+.shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 2px 2px 5px rgba(0, 0, 0, 0.1);
+
+}
+
+// .card-shadow{
+//   box-shadow: ;
+// }
 
 .text {
   text-shadow: 1px 1px black;
