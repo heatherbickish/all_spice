@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from "@/AppState";
+import AddRecipeModal from "@/components/AddRecipeModal.vue";
 import Login from "@/components/Login.vue";
 import RecipeCard from "@/components/RecipeCard.vue";
 import { recipesService } from "@/services/RecipesService";
@@ -38,7 +39,7 @@ async function getAllRecipes() {
         </div>
       </div>
       <div class="row justify-content-center">
-        <div class="col-md-3">
+        <div class="col-md-2">
           <div class="text-light text-center text ">
             <h1>All-Spice</h1>
             <h5>Cherish Your Family And Their Cooking</h5>
@@ -68,7 +69,9 @@ async function getAllRecipes() {
         <RecipeCard :recipe="recipe" />
       </div>
       <div>
-        <button class="btn add-button"><i class="mdi mdi-plus-circle text-success"></i></button>
+        <button data-bs-toggle="modal" data-bs-target="#addRecipeModal" class="btn add-button"><i
+            class="mdi mdi-plus-circle text-success"></i></button>
+        <AddRecipeModal />
       </div>
     </div>
   </section>
