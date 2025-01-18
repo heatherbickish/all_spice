@@ -6,9 +6,22 @@ import RecipeCard from "@/components/RecipeCard.vue";
 import { recipesService } from "@/services/RecipesService";
 import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 
-const recipes = computed(() => AppState.recipes)
+// const recipes = computed(() => AppState.recipes)
+const recipes = computed(() => {
+  if (activeFilterCategory.value == 'home') return AppState.recipes
+  return AppState.recipes.filter(recipe => recipe.category == activeFilterCategory.value)
+})
+
+const activeFilterCategory = ref('home')
+
+const categories = [
+  { name: 'home' },
+  { name: 'my recipes' },
+  { name: 'favorites' }
+
+]
 
 onMounted(() => {
   getAllRecipes()
@@ -54,9 +67,11 @@ async function getAllRecipes() {
     <div class="row justify-content-center">
       <div class="col-md-4 text-center menu-box">
         <div class="bg-light rounded py-2 shadow">
-          <button class="btn text-success fs-5 selectable">Home</button>
-          <button class="btn text-success fs-5 selectable">My Recipes</button>
-          <button class="btn text-success fs-5 selectable">Favorites</button>
+          <button @click="activeFilterCategory = category.name" v-for="category in categories"
+            :key="'filter-' + category.name" class="btn text-success fs-5 selectable text-capitalize">{{ category.name
+            }}</button>
+          <!-- <button class="btn text-success fs-5 selectable">My Recipes</button>
+          <button class="btn text-success fs-5 selectable">Favorites</button> -->
         </div>
       </div>
     </div>

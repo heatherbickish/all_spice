@@ -54,7 +54,7 @@ const recipe = computed(() => AppState.activeRecipe)
 <style lang="scss" scoped>
 .recipe-box {
   height: 500px;
-  width: auto;
+  width: 500px;
   background-size: cover;
   background-position: center;
   // border-radius: 5px;
