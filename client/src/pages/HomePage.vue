@@ -67,6 +67,9 @@ async function getAllRecipes() {
       <div v-for="recipe in recipes" :key="recipe.id" class="col-md-4 mt-4">
         <RecipeCard :recipe="recipe" />
       </div>
+      <div>
+        <button class="btn add-button"><i class="mdi mdi-plus-circle text-success"></i></button>
+      </div>
     </div>
   </section>
 </template>
@@ -90,6 +93,14 @@ h5 {
 
 .text {
   text-shadow: 1px 1px black;
+}
+
+.add-button {
+  font-size: 5rem;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin-right: 1rem;
 }
 
 

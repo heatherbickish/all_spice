@@ -8,7 +8,10 @@ class RecipesService {
   async getRecipeById(recipeId) {
     const response = await api.get(`api/recipes/${recipeId}`)
     logger.log('Got recipe by id', response.data)
+    const recipe = new Recipe(response.data)
+    AppState.activeRecipe = recipe
   }
+
   async getAllRecipes() {
     const response = await api.get('api/recipes');
     const recipes = response.data.map(recipePojo => new Recipe(recipePojo));
