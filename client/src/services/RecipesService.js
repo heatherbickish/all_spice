@@ -5,6 +5,10 @@ import { AppState } from "@/AppState.js"
 
 
 class RecipesService {
+  async getRecipeById(recipeId) {
+    const response = await api.get(`api/recipes/${recipeId}`)
+    logger.log('Got recipe by id', response.data)
+  }
   async getAllRecipes() {
     const response = await api.get('api/recipes');
     const recipes = response.data.map(recipePojo => new Recipe(recipePojo));
