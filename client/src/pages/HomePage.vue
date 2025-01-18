@@ -1,37 +1,63 @@
 <script setup>
+import Login from "@/components/Login.vue";
+
 
 </script>
 
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 card align-items-center shadow rounded elevation-3">
-      <img src="@/assets/img/cw-circle-logo.png" alt="CodeWorks Logo"
-        class="rounded-circle">
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
+  <section class="container">
+    <div class="row hero justify-content-end mt-4 shadow">
+      <div class="col-md-4">
+        <div class="mt-2 d-flex align-items-center">
+          <input type="text" class="form-control" placeholder="Search...">
+          <button class="btn text-light fs-4"><i class="mdi mdi-magnify me-3"></i></button>
+          <Login />
+          <div class="mt-2">
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-md-3">
+          <div class="text-light text-center text">
+            <h1>All-Spice</h1>
+            <h5>Cherish Your Family And Their Cooking</h5>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- SECTION  menu buttons -->
+  <section class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-4 text-center menu-box">
+        <div class="bg-light rounded py-2 shadow">
+          <button class="btn text-success fs-5">Home</button>
+          <button class="btn text-success fs-5">My Recipes</button>
+          <button class="btn text-success fs-5">Favorites</button>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
+.hero {
+  background-image: url(https://images.unsplash.com/photo-1690983322070-22861e13ce47?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
+  height: 500px;
+  width: auto;
+  background-size: cover;
+  background-position: center;
+}
 
-  .home-card {
-    width: clamp(500px, 50vw, 100%);
+.text {
+  text-shadow: 1px 1px black;
+}
 
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
+@media screen and (min-width: 768px) {
+  .menu-box {
+    position: relative;
+    bottom: 2em;
   }
 }
 </style>
