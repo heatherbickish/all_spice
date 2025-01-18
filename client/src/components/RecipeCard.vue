@@ -35,8 +35,8 @@ async function getRecipeById(recipeId) {
     <div class="ms-3">
       <h5 class="text-light position-absolute bottom-0 glass-box px-2 py-2">{{ recipe.title }}</h5>
     </div>
+    <RecipeDetailsModal />
   </div>
-  <RecipeDetailsModal />
 </template>
 
 

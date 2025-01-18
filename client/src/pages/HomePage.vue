@@ -70,7 +70,7 @@ async function getAllRecipes() {
       </div>
       <div>
         <button data-bs-toggle="modal" data-bs-target="#addRecipeModal" class="btn add-button"><i
-            class="mdi mdi-plus-circle text-success"></i></button>
+            class="mdi mdi-plus-circle text-secondary"></i></button>
         <AddRecipeModal />
       </div>
     </div>
