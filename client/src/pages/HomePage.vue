@@ -1,7 +1,27 @@
 <script setup>
+import { AppState } from "@/AppState";
 import Login from "@/components/Login.vue";
 import RecipeCard from "@/components/RecipeCard.vue";
+import { recipesService } from "@/services/RecipesService";
+import { logger } from "@/utils/Logger";
+import Pop from "@/utils/Pop";
+import { computed, onMounted } from "vue";
 
+const recipes = computed(() => AppState.recipes)
+
+onMounted(() => {
+  getAllRecipes()
+})
+
+async function getAllRecipes() {
+  try {
+    await recipesService.getAllRecipes()
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error(error)
+  }
+}
 
 </script>
 
@@ -44,7 +64,9 @@ import RecipeCard from "@/components/RecipeCard.vue";
   <!-- SECTION recipe cards -->
   <section class="container">
     <div class="row">
-      <RecipeCard />
+      <div v-for="recipe in recipes" :key="recipe.id" class="col-md-4 mt-4">
+        <RecipeCard :recipe="recipe" />
+      </div>
     </div>
   </section>
 </template>
