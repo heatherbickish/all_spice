@@ -39,7 +39,7 @@ async function getAllRecipes() {
       </div>
       <div class="row justify-content-center">
         <div class="col-md-3">
-          <div class="text-light text-center text">
+          <div class="text-light text-center text ">
             <h1>All-Spice</h1>
             <h5>Cherish Your Family And Their Cooking</h5>
           </div>
@@ -72,6 +72,13 @@ async function getAllRecipes() {
 </template>
 
 <style scoped lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Oranienbaum&display=swap');
+
+h1,
+h5 {
+  font-family: "Oranienbaum", serif;
+}
+
 .hero {
   background-image: url(https://images.unsplash.com/photo-1690983322070-22861e13ce47?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   height: 500px;
