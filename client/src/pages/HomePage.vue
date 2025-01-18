@@ -1,5 +1,6 @@
 <script setup>
 import Login from "@/components/Login.vue";
+import RecipeCard from "@/components/RecipeCard.vue";
 
 
 </script>
@@ -32,11 +33,18 @@ import Login from "@/components/Login.vue";
     <div class="row justify-content-center">
       <div class="col-md-4 text-center menu-box">
         <div class="bg-light rounded py-2 shadow">
-          <button class="btn text-success fs-5">Home</button>
-          <button class="btn text-success fs-5">My Recipes</button>
-          <button class="btn text-success fs-5">Favorites</button>
+          <button class="btn text-success fs-5 selectable">Home</button>
+          <button class="btn text-success fs-5 selectable">My Recipes</button>
+          <button class="btn text-success fs-5 selectable">Favorites</button>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- SECTION recipe cards -->
+  <section class="container">
+    <div class="row">
+      <RecipeCard />
     </div>
   </section>
 </template>
@@ -48,11 +56,13 @@ import Login from "@/components/Login.vue";
   width: auto;
   background-size: cover;
   background-position: center;
+  border-radius: 5px;
 }
 
 .text {
   text-shadow: 1px 1px black;
 }
+
 
 @media screen and (min-width: 768px) {
   .menu-box {
