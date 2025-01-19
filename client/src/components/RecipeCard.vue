@@ -59,7 +59,6 @@ async function getRecipeById(recipeId) {
   background-position: center;
   border-radius: 5px;
   position: relative;
-  // box-shadow: 0 9px 9px rgba(0, 0, 0, 0.2);
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.2), 5px 6px 4px rgba(0, 0, 0, 0.16);
 }
 

@@ -51,7 +51,7 @@ const account = computed(() => AppState.account)
           </div>
         </div>
         <div class="modal-footer">
-          <button v-if="recipe?.creatorId == account?.id" class="btn btn-success">Submit</button>
+          <button v-if="recipe?.creatorId == account?.id" class="btn btn-success">Save Changes</button>
           <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
