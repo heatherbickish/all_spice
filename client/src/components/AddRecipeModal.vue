@@ -2,8 +2,9 @@
 import { recipesService } from "@/services/RecipesService";
 import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
-import { ref } from "vue";
-
+import { ref, useModel } from "vue";
+import { Modal } from "bootstrap";
+import RecipeDetailsModal from "./RecipeDetailsModal.vue";
 
 
 
@@ -17,12 +18,14 @@ const editableRecipeData = ref({
 
 async function createRecipe() {
   try {
-    await recipesService.createRecipe(editableRecipeData.value)
+    const createdRecipe = await recipesService.createRecipe(editableRecipeData.value)
     editableRecipeData.value = {
       title: '',
       category: '',
       img: ''
     }
+    Modal.getInstance('#addRecipeModal').hide()
+
   }
   catch (error) {
     Pop.meow(error);
@@ -46,7 +49,7 @@ async function createRecipe() {
             <div class="d-flex">
               <div class="mb-3 me-5">
                 <label for="title" class="form-label">Title</label>
-                <input v-model="editableRecipeData.title" type="text" class="form-control" maxlength="40" id="title"
+                <input v-model="editableRecipeData.title" type="text" class="form-control" maxlength="30" id="title"
                   placeholder="Title..." required>
               </div>
               <div class="mb-3">
@@ -65,11 +68,11 @@ async function createRecipe() {
               <input v-model="editableRecipeData.img" type="url" class="form-control" maxlength="3000" id="img"
                 placeholder="Image Url..." required>
             </div>
+            <div class="modal-footer">
+              <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-success">Submit</button>
+            </div>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-success">Submit</button>
         </div>
       </div>
     </div>
