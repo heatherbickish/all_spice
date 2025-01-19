@@ -4,7 +4,7 @@ import { computed } from "vue";
 
 
 const recipe = computed(() => AppState.activeRecipe)
-
+const account = computed(() => AppState.account)
 
 
 
@@ -22,7 +22,17 @@ const recipe = computed(() => AppState.activeRecipe)
               <div class="d-flex">
                 <img :src="recipe.img" alt="" class="recipe-box">
                 <div class="ms-4">
-                  <h4 class="text-success">{{ recipe.title }}</h4>
+                  <div class="d-flex align-items-center">
+                    <h4 class="text-success">{{ recipe.title }}</h4>
+                    <div v-if="recipe.creatorId == account.id" class="dropdown">
+                      <button class=" btn fs-4 ms-4 dropdown toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></button>
+                      <ul class="dropdown-menu">
+                        <li class="dropdown-item">Edit Recipe</li>
+                        <li class="dropdown-item text-danger">Delete Recipe</li>
+                      </ul>
+                    </div>
+                  </div>
                   <small>by: {{ recipe.creator.name }}</small>
                   <p class="mt-2 text-capitalize">{{ recipe.category }}</p>
                   <h5 class="mt-3 mb-3">Ingredients</h5>

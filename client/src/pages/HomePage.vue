@@ -8,6 +8,7 @@ import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
 import { computed, onMounted, ref } from "vue";
 
+const account = computed(() => AppState.account)
 const recipes = computed(() => {
   if (activeFilterCategory.value == 'home') return AppState.recipes
   return AppState.recipes.filter(recipe => recipe.category == activeFilterCategory.value)
@@ -80,7 +81,7 @@ async function getAllRecipes() {
         <RecipeCard :recipe="recipe" />
       </div>
       <div>
-        <button data-bs-toggle="modal" data-bs-target="#addRecipeModal" class="btn add-button"><i
+        <button v-if="account" data-bs-toggle="modal" data-bs-target="#addRecipeModal" class="btn add-button"><i
             class="mdi mdi-plus-circle text-secondary"></i></button>
         <AddRecipeModal />
       </div>
@@ -109,10 +110,6 @@ h5 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 2px 2px 5px rgba(0, 0, 0, 0.1);
 
 }
-
-// .card-shadow{
-//   box-shadow: ;
-// }
 
 .text {
   text-shadow: 1px 1px black;

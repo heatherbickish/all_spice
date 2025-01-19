@@ -5,13 +5,13 @@ import { AppState } from "@/AppState.js"
 
 
 class RecipesService {
+
   createRecipe(value) {
     throw new Error("Method not implemented.")
   }
 
   async getRecipeById(recipeId) {
     const response = await api.get(`api/recipes/${recipeId}`)
-    logger.log('Got recipe by id', response.data)
     const recipe = new Recipe(response.data)
     AppState.activeRecipe = recipe
   }
