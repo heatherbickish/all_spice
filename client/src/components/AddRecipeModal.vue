@@ -2,10 +2,8 @@
 import { recipesService } from "@/services/RecipesService";
 import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
-import { ref, useModel } from "vue";
+import { ref } from "vue";
 import { Modal } from "bootstrap";
-import RecipeDetailsModal from "./RecipeDetailsModal.vue";
-
 
 
 const categories = ['breakfast', 'lunch', 'dinner', 'snack', 'dessert']

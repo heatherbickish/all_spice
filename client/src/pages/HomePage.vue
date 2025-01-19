@@ -11,6 +11,7 @@ import { computed, onMounted, ref } from "vue";
 const account = computed(() => AppState.account)
 const recipes = computed(() => {
   if (activeFilterCategory.value == 'home') return AppState.recipes
+  else if (activeFilterCategory.value == 'my recipes') return AppState.recipes.filter(recipe => recipe.creatorId == account.value.id)
   return AppState.recipes.filter(recipe => recipe.category == activeFilterCategory.value)
 })
 
