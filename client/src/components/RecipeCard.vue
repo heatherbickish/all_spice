@@ -5,6 +5,7 @@ import Pop from "@/utils/Pop";
 import { logger } from "@/utils/Logger";
 import { recipesService } from "@/services/RecipesService";
 import { favoritesService } from "@/services/FavoritesService";
+import { ingredientsService } from "@/services/IngredientsService";
 
 defineProps({
   recipe: { type: Recipe, required: true }
@@ -14,6 +15,7 @@ defineProps({
 async function getRecipeById(recipeId) {
   try {
     await recipesService.getRecipeById(recipeId)
+    await ingredientsService.getIngredientsByRecipeId(recipeId)
   }
   catch (error) {
     Pop.meow(error);

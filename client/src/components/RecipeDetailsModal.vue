@@ -5,6 +5,7 @@ import { computed } from "vue";
 
 const recipe = computed(() => AppState.activeRecipe)
 const account = computed(() => AppState.account)
+const ingredients = computed(() => AppState.ingredients)
 
 
 
@@ -36,8 +37,9 @@ const account = computed(() => AppState.account)
                   <small>by: {{ recipe.creator.name }}</small>
                   <p class="mt-2 text-capitalize">{{ recipe.category }}</p>
                   <h5 class="mt-3 mb-3">Ingredients</h5>
-                  <div class="ingreds">
-                    <p>baclonkfjdl</p>
+                  <div v-for="ingredient in ingredients" :key="ingredient.id" class="ingreds">
+                    <p v-if="ingredient.name && ingredient.quantity == null">No ingredients to add</p>
+                    <p>{{ ingredient.quantity }} {{ ingredient.name }}</p>
                   </div>
                   <div>
                     <h5>Instructions</h5>
