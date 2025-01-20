@@ -14,6 +14,7 @@ const editableRecipeData = ref({
   img: ''
 })
 
+
 async function createRecipe() {
   try {
     const createdRecipe = await recipesService.createRecipe(editableRecipeData.value)
@@ -23,7 +24,6 @@ async function createRecipe() {
       img: ''
     }
     Modal.getInstance('#addRecipeModal').hide()
-
   }
   catch (error) {
     Pop.meow(error);

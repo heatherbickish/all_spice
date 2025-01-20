@@ -6,13 +6,13 @@ export const AppState = reactive({
   identity: null,
   /** @type {import('./models/Account.js').Account} user info from the database*/
   account: null,
-  /** @type {import('./models/Recipe.js').Recipe[]} user info from the database*/
+  /** @type {import('./models/Recipe.js').Recipe[]} */
   recipes: [],
-  /** @type {import('./models/Recipe.js').Recipe} user info from the database*/
+  /** @type {import('./models/Recipe.js').Recipe} */
   activeRecipe: null,
-  /** @type {import('./models/Recipe.js').Recipe[]} user info from the database*/
-  favoriteRecipes: [],
-  /** @type {import('./models/Ingredient.js').Ingredient[]} user info from the database*/
-  ingredients: []
+  /** @type {import('./models/Ingredient.js').Ingredient[]} */
+  ingredients: [],
+  /** @type {import('./models/Favorite.js').Favorite[]} */
+  favorites: []
 })
 

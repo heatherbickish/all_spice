@@ -4,7 +4,6 @@ import RecipeDetailsModal from "./RecipeDetailsModal.vue";
 import Pop from "@/utils/Pop";
 import { logger } from "@/utils/Logger";
 import { recipesService } from "@/services/RecipesService";
-import { favoritesService } from "@/services/FavoritesService";
 import { ingredientsService } from "@/services/IngredientsService";
 
 defineProps({
@@ -23,16 +22,8 @@ async function getRecipeById(recipeId) {
   }
 }
 
-// async function createFavorite() {
-//   try {
-//     logger.log('getting a favorite')
-//     await favoritesService.createFavorite()
-//   }
-//   catch (error) {
-//     Pop.meow(error);
-//     logger.error(error)
-//   }
-// }
+
+
 
 </script>
 
@@ -40,13 +31,13 @@ async function getRecipeById(recipeId) {
 <template>
   <div class="mb-5 recipe-box" :style="{ backgroundImage: `url(${recipe.img})` }">
     <div class="d-flex align-items-center justify-content-between">
-      <h5 class="text-light ms-4 mt-2 rounded-pill glass-box px-3">{{ recipe.category }}</h5>
+      <h5 class="text-light ms-4 mt-2 rounded-pill glass-box px-3 text-capitalize ">{{ recipe.category }}</h5>
       <button class="btn selectable glass-box p-0 px-2 me-2 mt-2"><i
           class="mdi mdi-heart-outline text-danger fs-4"></i></button>
     </div>
     <div class="ms-3">
       <h5 role="button" @click="getRecipeById(recipe.id)" data-bs-toggle="modal" data-bs-target="#recipeDetailsModal"
-        class="text-light position-absolute bottom-0 title-box px-2 py-2">{{ recipe.title }}</h5>
+        class="text-light position-absolute bottom-0 title-box px-2 py-2 text">{{ recipe.title }}</h5>
     </div>
     <RecipeDetailsModal />
   </div>
@@ -76,5 +67,9 @@ async function getRecipeById(recipeId) {
   border-radius: 5px;
   background-color: rgba(0, 0, 0, 0.0950);
   backdrop-filter: blur(10px);
+}
+
+.text {
+  text-shadow: 1px 1px black;
 }
 </style>
