@@ -13,6 +13,7 @@ const account = computed(() => AppState.account)
 const recipes = computed(() => {
   if (activeFilterCategory.value == 'home') return AppState.recipes
   else if (activeFilterCategory.value == 'my recipes') return AppState.recipes.filter(recipe => recipe.creatorId == account.value.id)
+  else if (activeFilterCategory.value == 'favorites') return AppState.favorites
   return AppState.recipes.filter(recipe => recipe.category == activeFilterCategory.value)
 })
 

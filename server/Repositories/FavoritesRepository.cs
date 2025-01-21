@@ -32,7 +32,7 @@ public class FavoritesRepository
     FavoriteRecipe favorite = _db.Query(sql, (Favorite favorite, FavoriteRecipe recipe, Profile account) =>
     {
       recipe.FavoriteId = favorite.Id;
-      recipe.AccountId = recipe.CreatorId;
+      recipe.AccountId = favorite.AccountId;
       recipe.Creator = account;
       return recipe;
     }, favData).SingleOrDefault();
