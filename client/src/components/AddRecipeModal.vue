@@ -24,6 +24,7 @@ async function createRecipe() {
       img: ''
     }
     Modal.getInstance('#addRecipeModal').hide()
+    Modal.getOrCreateInstance('#recipeDetailsModal').show()
   }
   catch (error) {
     Pop.meow(error);
