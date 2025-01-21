@@ -5,9 +5,8 @@ import { AppState } from "@/AppState.js"
 
 
 class RecipesService {
-  async saveChanges(instructionData, recipeId) {
+  async editInstructions(instructionData, recipeId) {
     const response = await api.put(`api/recipes/${recipeId}`, instructionData)
-    logger.log('updated instructions', response.data)
     const updatedRecipe = new Recipe(response.data)
     AppState.activeRecipe = updatedRecipe
   }
@@ -15,6 +14,7 @@ class RecipesService {
   async createRecipe(recipeDate) {
     const response = await api.post('api/recipes', recipeDate)
     const createdRecipe = new Recipe(response.data)
+    AppState.recipes.unshift(createdRecipe)
     AppState.activeRecipe = createdRecipe
     return createdRecipe
   }

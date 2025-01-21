@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from "@/AppState";
+import { ingredientsService } from "@/services/IngredientsService";
 import { recipesService } from "@/services/RecipesService";
 import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
@@ -13,11 +14,12 @@ const ingredients = computed(() => AppState.ingredients)
 const editMode = ref(false)
 
 const editableInstructions = ref({ instructions: '' })
+const editableIngredients = ref({ quantity: '', name: '' })
 
-async function saveChanges() {
+async function editInstructions() {
   try {
     const recipeId = recipe.value.id
-    const updatedInstructions = await recipesService.saveChanges(editableInstructions.value, recipeId)
+    await recipesService.editInstructions(editableInstructions.value, recipeId)
     editableInstructions.value = { instructions: '' }
     editMode.value = false
   }
@@ -27,6 +29,19 @@ async function saveChanges() {
   }
 }
 
+
+async function addIngredients() {
+  try {
+    // const recipeId = recipe.value.id
+    await ingredientsService.addIngredients(editableIngredients)
+    editableIngredients.value = { quantity: '', name: '' }
+    editMode.value = false
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error(error)
+  }
+}
 
 
 </script>
@@ -49,30 +64,35 @@ async function saveChanges() {
                       <button class=" btn fs-4 ms-4 dropdown toggle" type="button" data-bs-toggle="dropdown"
                         aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></button>
                       <ul class="dropdown-menu">
-                        <li class="dropdown-item" @click="editMode = !editMode">Edit Recipe</li>
-                        <li class="dropdown-item text-danger">Delete Recipe</li>
+                        <li role="button" class="dropdown-item" @click="editMode = !editMode">Edit Recipe</li>
+                        <li role="button" class="dropdown-item text-danger">Delete Recipe</li>
                       </ul>
                     </div>
                   </div>
                   <small>by: {{ recipe.creator?.name }}</small>
-                  <p class="mt-2 text-capitalize">{{ recipe.category }}</p>
+                  <p class="mt-2 text-capitalize"><em>{{ recipe.category }}</em></p>
                   <h5 class="mt-3 mb-3">Ingredients</h5>
-                  <!-- <button class="btn"><i class="mdi mdi-plus-circle-outline text-success fs-4"></i></button> -->
                   <div class="ingreds">
-                    <input v-if="editMode == true" type="text" name="" id="">
+                    <input v-model="editableIngredients.quantity" v-if="editMode == true" class="form-control mb-2"
+                      placeholder="quantity..." type="text" name="quantity" id="quantity">
+                    <input v-model="editableIngredients.name" v-if="editMode == true" type="text" name="name" id="name"
+                      placeholder="ingredient..." class="form-control">
+                    <div class="text-end mt-2">
+                      <button @click="addIngredients()" v-if="editMode == true"
+                        class="btn btn-sm btn-secondary">Save</button>
+                    </div>
                     <ul v-for="ingredient in ingredients" :key="ingredient.id">
                       <li>{{ ingredient.quantity }} {{ ingredient.name }}</li>
                     </ul>
                   </div>
                   <div>
                     <h5>Instructions</h5>
-                    <!-- <p v-if="editMode == true" contenteditable="true">{{ recipe.instructions }}</p> -->
                     <textarea v-model="editableInstructions.instructions" v-if="editMode == true" type="text"
-                      class="form-floating" maxlength="500"></textarea>
+                      class="form-control" maxlength="500"></textarea>
                     <p v-else>{{ recipe.instructions }}</p>
-                    <div class="text-end">
-                      <button @click="saveChanges()" v-if="editMode == true"
-                        class="btn btn-sm btn-success">Save</button>
+                    <div class="text-end mt-2">
+                      <button @click="editInstructions()" v-if="editMode == true"
+                        class="btn btn-sm btn-secondary">Save</button>
                     </div>
                   </div>
                 </div>
@@ -83,8 +103,7 @@ async function saveChanges() {
           </div>
         </div>
         <div class="modal-footer">
-          <!-- <button v-if="recipe?.creatorId == account?.id" class="btn btn-success">Save Changes</button> -->
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
     </div>

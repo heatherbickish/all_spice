@@ -5,9 +5,12 @@ import { AppState } from "@/AppState.js"
 
 
 class IngredientsService {
+  async addIngredients(ingredientData) {
+    const response = await api.post('api/ingredients', ingredientData)
+    logger.log('added ingredients', response.data)
+  }
   async getIngredientsByRecipeId(recipeId) {
     const response = await api.get(`api/recipes/${recipeId}/ingredients`)
-    logger.log('getting ingredients', response.data)
     const ingredients = response.data.map(ingredientPojo => new Ingredient(ingredientPojo))
     AppState.ingredients = ingredients
   }
