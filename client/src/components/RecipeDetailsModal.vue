@@ -14,7 +14,7 @@ const ingredients = computed(() => AppState.ingredients)
 const editMode = ref(false)
 
 const editableInstructions = ref({ instructions: '' })
-const editableIngredients = ref({ quantity: '', name: '' })
+const editableIngredients = ref({ quantity: '', name: '', recipeId: 0 })
 
 async function editInstructions() {
   try {
@@ -30,11 +30,11 @@ async function editInstructions() {
 }
 
 
-async function addIngredients() {
+async function createIngredients() {
   try {
-    // const recipeId = recipe.value.id
-    await ingredientsService.addIngredients(editableIngredients)
-    editableIngredients.value = { quantity: '', name: '' }
+    editableIngredients.value.recipeId = recipe.value.id
+    await ingredientsService.createIngredients(editableIngredients.value)
+    editableIngredients.value = { quantity: '', name: '', recipeId: 0 }
     editMode.value = false
   }
   catch (error) {
@@ -73,14 +73,16 @@ async function addIngredients() {
                   <p class="mt-2 text-capitalize"><em>{{ recipe.category }}</em></p>
                   <h5 class="mt-3 mb-3">Ingredients</h5>
                   <div class="ingreds">
-                    <input v-model="editableIngredients.quantity" v-if="editMode == true" class="form-control mb-2"
-                      placeholder="quantity..." type="text" name="quantity" id="quantity">
-                    <input v-model="editableIngredients.name" v-if="editMode == true" type="text" name="name" id="name"
-                      placeholder="ingredient..." class="form-control">
-                    <div class="text-end mt-2">
-                      <button @click="addIngredients()" v-if="editMode == true"
-                        class="btn btn-sm btn-secondary">Save</button>
-                    </div>
+                    <form @submit.prevent="createIngredients()">
+
+                      <input v-model="editableIngredients.quantity" v-if="editMode == true" class="form-control mb-2"
+                        placeholder="quantity..." type="text" name="quantity" id="quantity">
+                      <input v-model="editableIngredients.name" v-if="editMode == true" type="text" name="name"
+                        id="name" placeholder="ingredient..." class="form-control">
+                      <div class="text-end mt-2">
+                        <button type="submit" v-if="editMode == true" class="btn btn-sm btn-secondary">Save</button>
+                      </div>
+                    </form>
                     <ul v-for="ingredient in ingredients" :key="ingredient.id">
                       <li>{{ ingredient.quantity }} {{ ingredient.name }}</li>
                     </ul>

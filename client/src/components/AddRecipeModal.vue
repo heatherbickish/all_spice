@@ -17,7 +17,7 @@ const editableRecipeData = ref({
 
 async function createRecipe() {
   try {
-    const createdRecipe = await recipesService.createRecipe(editableRecipeData.value)
+    await recipesService.createRecipe(editableRecipeData.value)
     editableRecipeData.value = {
       title: '',
       category: '',
