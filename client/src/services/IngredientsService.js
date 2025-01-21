@@ -7,7 +7,6 @@ import { AppState } from "@/AppState.js"
 class IngredientsService {
   async createIngredients(ingredientData) {
     const response = await api.post('api/ingredients', ingredientData)
-    logger.log('added ingredients', response.data)
     const ingredients = new Ingredient(response.data)
     AppState.ingredients.push(ingredients)
   }

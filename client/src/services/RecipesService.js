@@ -5,6 +5,10 @@ import { AppState } from "@/AppState.js"
 
 
 class RecipesService {
+  async deleteRecipe(recipeId) {
+    const response = await api.delete(`api/recipes/${recipeId}`)
+    logger.log('deleted recipe', response.data)
+  }
   async editInstructions(instructionData, recipeId) {
     const response = await api.put(`api/recipes/${recipeId}`, instructionData)
     const updatedRecipe = new Recipe(response.data)

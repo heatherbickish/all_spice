@@ -3,10 +3,11 @@ import { AppState } from "@/AppState";
 import AddRecipeModal from "@/components/AddRecipeModal.vue";
 import Login from "@/components/Login.vue";
 import RecipeCard from "@/components/RecipeCard.vue";
+import { favoritesService } from "@/services/FavoritesService";
 import { recipesService } from "@/services/RecipesService";
 import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 
 const account = computed(() => AppState.account)
 const recipes = computed(() => {
@@ -27,9 +28,24 @@ onMounted(() => {
   getAllRecipes()
 })
 
+watch(account, () => {
+  getMyFavorites()
+
+})
+
 async function getAllRecipes() {
   try {
     await recipesService.getAllRecipes()
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error(error)
+  }
+}
+
+async function getMyFavorites() {
+  try {
+    await favoritesService.getMyFavorites()
   }
   catch (error) {
     Pop.meow(error);

@@ -29,13 +29,24 @@ async function editInstructions() {
   }
 }
 
-
 async function createIngredients() {
   try {
     editableIngredients.value.recipeId = recipe.value.id
     await ingredientsService.createIngredients(editableIngredients.value)
     editableIngredients.value = { quantity: '', name: '', recipeId: 0 }
     editMode.value = false
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error(error)
+  }
+}
+// FIXME
+async function deleteRecipe(recipeId) {
+  try {
+    const confirmed = await Pop.confirm(`Are you sure you want to delete the ${recipe.value.title} recipe?`)
+    if (!confirmed) return
+    await recipesService.deleteRecipe(recipeId)
   }
   catch (error) {
     Pop.meow(error);
@@ -65,7 +76,8 @@ async function createIngredients() {
                         aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></button>
                       <ul class="dropdown-menu">
                         <li role="button" class="dropdown-item" @click="editMode = !editMode">Edit Recipe</li>
-                        <li role="button" class="dropdown-item text-danger">Delete Recipe</li>
+                        <li role="button" class="dropdown-item text-danger" @click="deleteRecipe(recipe.id)">Delete
+                          Recipe</li>
                       </ul>
                     </div>
                   </div>
@@ -74,7 +86,6 @@ async function createIngredients() {
                   <h5 class="mt-3 mb-3">Ingredients</h5>
                   <div class="ingreds">
                     <form @submit.prevent="createIngredients()">
-
                       <input v-model="editableIngredients.quantity" v-if="editMode == true" class="form-control mb-2"
                         placeholder="quantity..." type="text" name="quantity" id="quantity">
                       <input v-model="editableIngredients.name" v-if="editMode == true" type="text" name="name"
