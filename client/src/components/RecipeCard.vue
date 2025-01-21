@@ -17,7 +17,7 @@ const props = defineProps({
 
 const account = computed(() => AppState.account)
 const favorites = computed(() => AppState.favorites)
-const hasFavorited = computed(() => favorites.value.some(favorite => account.value?.id == favorite.accountId))
+const hasFavorited = computed(() => favorites.value.some(favorite => props.recipe.id == favorite.recipeId))
 
 async function getRecipeById(recipeId) {
   try {
@@ -50,9 +50,10 @@ async function createFavorite(recipeId) {
   <div class="mb-5 recipe-box" :style="{ backgroundImage: `url(${recipe.img})` }">
     <div class="d-flex align-items-center justify-content-between">
       <h5 class="text-light ms-4 mt-2 rounded-pill glass-box px-3 text-capitalize ">{{ recipe.category }}</h5>
-      <button @click="createFavorite(recipe.id)" class="btn selectable glass-box p-0 px-2 me-2 mt-2"><i
+      <button v-if="!hasFavorited" @click="createFavorite(recipe.id)"
+        class="btn selectable glass-box p-0 px-2 me-2 mt-2"><i
           class="mdi mdi-heart-outline text-secondary fs-4"></i></button>
-      <button v-if="hasFavorited" class="btn selectable glass-box p-0 px-2 me-2 mt-2"><i
+      <button v-else class="btn selectable glass-box p-0 px-2 me-2 mt-2"><i
           class="mdi mdi-heart text-danger fs-4"></i></button>
     </div>
     <div class="ms-3">

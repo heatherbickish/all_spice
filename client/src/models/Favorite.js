@@ -1,11 +1,11 @@
+import { Recipe } from "./Recipe.js"
 
 
-export class Favorite {
+export class Favorite extends Recipe {
   constructor(data) {
-    this.id = data.id
-    this.createdAt = data.createdAt
-    this.updatedAt = data.updatedAt
-    this.recipeId = data.recipeId
+    super(data)
+    this.favoriteId = data.favoriteId
+    this.recipeId = data.id
     this.accountId = data.accountId
   }
 }

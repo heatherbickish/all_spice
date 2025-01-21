@@ -44,7 +44,7 @@ public class RecipesRepository
       accounts.*
       FROM recipes
       JOIN accounts ON recipes.creator_id = accounts.id
-      ORDER BY recipes.created_at ASC;";
+      ORDER BY recipes.created_at DESC;";
 
     List<Recipe> recipes = _db.Query(sql, (Recipe recipe, Profile account) =>
     {
