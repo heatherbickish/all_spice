@@ -1,10 +1,14 @@
-import { logger } from "@/utils/Logger.js"
 import { api } from "./AxiosService.js"
 import { Recipe } from "@/models/Recipe.js"
 import { AppState } from "@/AppState.js"
 
 
 class RecipesService {
+  async searchRecipes(searchQuery) {
+    const response = await api.get(`api/recipes/?title=${searchQuery}`)
+    const recipes = response.data.map(recipePojo => new Recipe(recipePojo))
+    AppState.recipes = recipes
+  }
   async deleteRecipe(recipeId) {
     const response = await api.delete(`api/recipes/${recipeId}`)
     const recipeIndex = AppState.recipes.findIndex(recipe => recipe.id == recipeId)

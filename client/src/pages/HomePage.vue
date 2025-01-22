@@ -18,6 +18,7 @@ const recipes = computed(() => {
 })
 
 const activeFilterCategory = ref('home')
+const editableSearchQuery = ref('')
 
 const categories = [
   { name: 'home' },
@@ -54,16 +55,32 @@ async function getMyFavorites() {
   }
 }
 
+async function searchRecipes() {
+  try {
+    await recipesService.searchRecipes(editableSearchQuery.value)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error(error)
+  }
+}
+
 </script>
 
 <template>
   <section class="container">
     <div class="row hero justify-content-end mt-4 shadow">
       <div class="col-md-4">
-        <div class="mt-2 d-flex align-items-center">
-          <input type="text" class="form-control" placeholder="Search...">
-          <button class="btn text-light fs-4"><i class="mdi mdi-magnify me-3"></i></button>
-          <Login />
+        <div>
+          <form @submit.prevent="searchRecipes()">
+            <div class="mt-2 d-flex align-items-center">
+              <label for="searchQuery"></label>
+              <input v-model="editableSearchQuery" id="searchQuery" type="text" class="form-control"
+                placeholder="Search...">
+              <button class="btn text-light fs-4" type="submit"><i class="mdi mdi-magnify me-3"></i></button>
+              <Login />
+            </div>
+          </form>
           <div class="mt-2">
           </div>
         </div>
