@@ -1,4 +1,3 @@
-import { logger } from "@/utils/Logger.js"
 import { api } from "./AxiosService.js"
 import { Ingredient } from "@/models/Ingredient.js"
 import { AppState } from "@/AppState.js"

@@ -58,6 +58,7 @@ async function getMyFavorites() {
 async function searchRecipes() {
   try {
     await recipesService.searchRecipes(editableSearchQuery.value)
+    editableSearchQuery.value = ''
   }
   catch (error) {
     Pop.meow(error);
@@ -74,10 +75,12 @@ async function searchRecipes() {
         <div>
           <form @submit.prevent="searchRecipes()">
             <div class="mt-2 d-flex align-items-center">
+              <button @click="getAllRecipes()" class="btn text-light fs-4"><i
+                  class="mdi mdi-home text-white"></i></button>
+              <button class="btn text-light fs-4" type="submit"><i class="mdi mdi-magnify text-white"></i></button>
               <label for="searchQuery"></label>
-              <input v-model="editableSearchQuery" id="searchQuery" type="text" class="form-control"
+              <input v-model="editableSearchQuery" id="searchQuery" type="text" class="form-control me-3"
                 placeholder="Search...">
-              <button class="btn text-light fs-4" type="submit"><i class="mdi mdi-magnify me-3"></i></button>
               <Login />
             </div>
           </form>
