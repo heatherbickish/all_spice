@@ -11,6 +11,8 @@ import { computed, ref } from "vue";
 const recipe = computed(() => AppState.activeRecipe)
 const account = computed(() => AppState.account)
 const ingredients = computed(() => AppState.ingredients)
+const favorites = computed(() => AppState.favorites)
+const foundFavorite = computed(() => favorites.value.find(favorite => recipe.value.id == favorite.recipeId))
 
 const editMode = ref(false)
 
@@ -118,7 +120,10 @@ async function deleteRecipe(recipeId) {
             </div>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer d-flex justify-content-between">
+          <div>
+            <i v-if="foundFavorite" class="mdi mdi-heart text-danger fs-4"></i>
+          </div>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
       </div>
