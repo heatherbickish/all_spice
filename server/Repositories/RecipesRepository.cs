@@ -54,6 +54,25 @@ public class RecipesRepository
     return recipes;
   }
 
+  internal List<Recipe> GetRecipesByQuery(string title)
+  {
+
+    string sql = @"
+      SELECT 
+      recipes.*,
+      accounts.* 
+      FROM recipes
+      JOIN accounts ON recipes.creator_id = accounts.id 
+      WHERE title LIKE @title
+      ORDER BY recipes.created_at DESC;";
+    List<Recipe> recipes = _db.Query(sql, (Recipe recipe, Profile account) =>
+    {
+      recipe.Creator = account;
+      return recipe;
+    }, new { title = $"%{title}%" }).ToList();
+    return recipes;
+  }
+
   internal Recipe GetRecipeById(int recipeId)
   {
     string sql = @"
@@ -102,4 +121,6 @@ public class RecipesRepository
       default: throw new Exception($"{rowsAffected} ROWS WERE UPDATED AND THAT WAS NO BUENO");
     }
   }
+
+
 }

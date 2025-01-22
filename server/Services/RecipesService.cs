@@ -19,9 +19,21 @@ public class RecipesService
     return recipe;
   }
 
-  internal List<Recipe> GetAllRecipes()
+  private List<Recipe> GetAllRecipes()
   {
     List<Recipe> recipes = _recipesRepository.GetAllRecipes();
+    return recipes;
+  }
+
+  internal List<Recipe> GetAllRecipes(Recipe recipeQuery)
+  {
+    List<Recipe> recipes;
+    if (recipeQuery.Title == null)
+    {
+      recipes = GetAllRecipes();
+      return recipes;
+    }
+    recipes = _recipesRepository.GetRecipesByQuery(recipeQuery.Title);
     return recipes;
   }
 

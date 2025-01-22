@@ -93,7 +93,8 @@ async function deleteRecipe(recipeId) {
                       <input v-model="editableIngredients.name" v-if="editMode == true" type="text" name="name"
                         id="name" placeholder="ingredient..." class="form-control">
                       <div class="text-end mt-2">
-                        <button type="submit" v-if="editMode == true" class="btn btn-sm btn-secondary">Save</button>
+                        <button type="submit" v-if="editMode == true"
+                          class="btn btn-sm btn-secondary mb-2">Save</button>
                       </div>
                     </form>
                     <ul v-for="ingredient in ingredients" :key="ingredient.id">

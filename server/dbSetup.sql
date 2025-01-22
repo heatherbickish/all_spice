@@ -22,6 +22,15 @@ CREATE TABLE recipes(
 
 DROP Table recipes;
 
+SELECT 
+      recipes.*,
+      accounts.*
+      FROM recipes
+      JOIN accounts ON recipes.creator_id = accounts.id
+      WHERE recipes.title LIKE '%burrito%'
+      ORDER BY recipes.created_at DESC;
+
+SELECT * FROM recipes WHERE title LIKE '%burrito%';
 
 CREATE TABLE ingredients(
   id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
