@@ -42,7 +42,7 @@ async function createIngredients() {
     logger.error(error)
   }
 }
-// FIXME
+
 async function deleteRecipe(recipeId) {
   try {
     const confirmed = await Pop.confirm(`Are you sure you want to delete the ${recipe.value.title} recipe?`)

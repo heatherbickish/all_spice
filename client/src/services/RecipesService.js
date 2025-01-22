@@ -19,7 +19,7 @@ class RecipesService {
   async createRecipe(recipeDate) {
     const response = await api.post('api/recipes', recipeDate)
     const createdRecipe = new Recipe(response.data)
-    AppState.recipes.push(createdRecipe)
+    AppState.recipes.unshift(createdRecipe)
     AppState.activeRecipe = createdRecipe
     return createdRecipe
   }

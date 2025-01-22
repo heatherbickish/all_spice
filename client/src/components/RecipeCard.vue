@@ -15,9 +15,8 @@ const props = defineProps({
   recipe: { type: Recipe, required: true }
 })
 
-// const account = computed(() => AppState.account)
 const favorites = computed(() => AppState.favorites)
-const hasFavorited = computed(() => favorites.value.some(favorite => props.recipe.id == favorite.recipeId))
+const foundFavorite = computed(() => favorites.value.find(favorite => props.recipe.id == favorite.recipeId))
 
 async function getRecipeById(recipeId) {
   try {
@@ -41,16 +40,18 @@ async function createFavorite(recipeId) {
   }
 }
 
-// async function deleteFavorite() {
-//   try {
+async function deleteFavorite(favoriteId) {
+  try {
+    const confirmed = await Pop.confirm(`Are you sure you want to unfavorite the ${props.recipe.title} recipe?`)
+    if (!confirmed) return
 
-//     await favoritesService.deleteFavorite()
-//   }
-//   catch (error) {
-//     Pop.meow(error);
-//     logger.error(error)
-//   }
-// }
+    await favoritesService.deleteFavorite(favoriteId)
+  }
+  catch (error) {
+    Pop.meow(error);
+    logger.error(error)
+  }
+}
 
 </script>
 
@@ -59,11 +60,11 @@ async function createFavorite(recipeId) {
   <div class="mb-5 recipe-box" :style="{ backgroundImage: `url(${recipe.img})` }">
     <div class="d-flex align-items-center justify-content-between">
       <h5 class="text-light ms-4 mt-2 rounded-pill glass-box px-3 text-capitalize ">{{ recipe.category }}</h5>
-      <button v-if="!hasFavorited" @click="createFavorite(recipe.id)"
+      <button v-if="!foundFavorite" @click="createFavorite(recipe.id)"
         class="btn selectable glass-box p-0 px-2 me-2 mt-2"><i
           class="mdi mdi-heart-outline text-secondary fs-4"></i></button>
-      <button v-else class="btn selectable glass-box p-0 px-2 me-2 mt-2"><i
-          class="mdi mdi-heart text-danger fs-4"></i></button>
+      <button v-else @click="deleteFavorite(foundFavorite.favoriteId)"
+        class="btn selectable glass-box p-0 px-2 me-2 mt-2"><i class="mdi mdi-heart text-danger fs-4"></i></button>
     </div>
     <div class="ms-3">
       <h5 role="button" @click="getRecipeById(recipe.id)" data-bs-toggle="modal" data-bs-target="#recipeDetailsModal"
