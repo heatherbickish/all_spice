@@ -6,7 +6,7 @@ import { logger } from "@/utils/Logger";
 import { recipesService } from "@/services/RecipesService";
 import { ingredientsService } from "@/services/IngredientsService";
 import { favoritesService } from "@/services/FavoritesService";
-import { computed, onMounted } from "vue";
+import { computed } from "vue";
 import { AppState } from "@/AppState";
 
 
@@ -15,7 +15,7 @@ const props = defineProps({
   recipe: { type: Recipe, required: true }
 })
 
-const account = computed(() => AppState.account)
+// const account = computed(() => AppState.account)
 const favorites = computed(() => AppState.favorites)
 const hasFavorited = computed(() => favorites.value.some(favorite => props.recipe.id == favorite.recipeId))
 
@@ -41,7 +41,16 @@ async function createFavorite(recipeId) {
   }
 }
 
+// async function deleteFavorite() {
+//   try {
 
+//     await favoritesService.deleteFavorite()
+//   }
+//   catch (error) {
+//     Pop.meow(error);
+//     logger.error(error)
+//   }
+// }
 
 </script>
 

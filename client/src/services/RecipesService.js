@@ -7,7 +7,8 @@ import { AppState } from "@/AppState.js"
 class RecipesService {
   async deleteRecipe(recipeId) {
     const response = await api.delete(`api/recipes/${recipeId}`)
-    logger.log('deleted recipe', response.data)
+    const recipeIndex = AppState.recipes.findIndex(recipe => recipe.id == recipeId)
+    AppState.recipes.splice(recipeIndex, 1)
   }
   async editInstructions(instructionData, recipeId) {
     const response = await api.put(`api/recipes/${recipeId}`, instructionData)

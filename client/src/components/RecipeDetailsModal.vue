@@ -4,6 +4,7 @@ import { ingredientsService } from "@/services/IngredientsService";
 import { recipesService } from "@/services/RecipesService";
 import { logger } from "@/utils/Logger";
 import Pop from "@/utils/Pop";
+import { Modal } from "bootstrap";
 import { computed, ref } from "vue";
 
 
@@ -46,6 +47,7 @@ async function deleteRecipe(recipeId) {
   try {
     const confirmed = await Pop.confirm(`Are you sure you want to delete the ${recipe.value.title} recipe?`)
     if (!confirmed) return
+    Modal.getInstance('#recipeDetailsModal').hide()
     await recipesService.deleteRecipe(recipeId)
   }
   catch (error) {

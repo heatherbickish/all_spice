@@ -87,7 +87,7 @@ public class RecipesController : ControllerBase
 
 
   [Authorize]
-  [HttpDelete("{recipeId}/ingredients")]
+  [HttpDelete("{recipeId}")]
   public async Task<ActionResult<string>> DeleteRecipe(int recipeId)
   {
     try
