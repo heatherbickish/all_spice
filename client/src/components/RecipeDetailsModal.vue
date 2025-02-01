@@ -69,8 +69,59 @@ async function deleteRecipe(recipeId) {
       <div class="modal-content">
         <div class="modal-body">
           <div>
-            <div v-if="recipe">
-              <div class="d-flex">
+            <div v-if="recipe" class="container">
+              <div class="row justify-content-between">
+                <div class="col-md-6">
+                  <div>
+                    <img :src="recipe.img" :alt="'A recipe by ' + recipe.creator.name" class="recipe-box">
+                  </div>
+                </div>
+                <div class="col-md-6 d-flex flex-column justify-space-around">
+                  <div>
+                    <h4 class="text-success" id="recipeDetailsModalLabel">{{ recipe.title }}</h4>
+                    <div v-if="recipe?.creatorId == account?.id" class="dropdown">
+                      <button class=" btn fs-4 ms-4 dropdown toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"><i class="mdi mdi-dots-horizontal"></i></button>
+                      <ul class="dropdown-menu">
+                        <li role="button" class="dropdown-item" title="Edit recipe" @click="editMode = !editMode">Edit
+                          Recipe</li>
+                        <li role="button" class="dropdown-item text-danger" title="Delete recipe"
+                          @click="deleteRecipe(recipe.id)">Delete
+                          Recipe</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <small>by: {{ recipe.creator?.name }}</small>
+                  <p class="mt-2 text-capitalize"><em>{{ recipe.category }}</em></p>
+                  <h5 class="mt-3 mb-3">Ingredients</h5>
+                  <div class="ingreds">
+                    <form @submit.prevent="createIngredients()">
+                      <input v-model="editableIngredients.quantity" v-if="editMode == true" class="form-control mb-2"
+                        placeholder="quantity..." type="text" name="quantity" id="quantity">
+                      <input v-model="editableIngredients.name" v-if="editMode == true" type="text" name="name"
+                        id="name" placeholder="ingredient..." class="form-control">
+                      <div class="text-end mt-2">
+                        <button type="submit" v-if="editMode == true" class="btn btn-sm btn-secondary mb-2"
+                          title="Save ingredients">Save</button>
+                      </div>
+                    </form>
+                    <ul v-for="ingredient in ingredients" :key="ingredient.id">
+                      <li>{{ ingredient.quantity }} {{ ingredient.name }}</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5>Instructions</h5>
+                    <textarea v-model="editableInstructions.instructions" v-if="editMode == true" type="text"
+                      class="form-control" maxlength="500"></textarea>
+                    <p v-else>{{ recipe.instructions }}</p>
+                    <div class="text-end mt-2">
+                      <button @click="editInstructions()" v-if="editMode == true" class="btn btn-sm btn-secondary"
+                        type="button" title="Save instructions">Save</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="d-flex">
                 <img :src="recipe.img" alt="" class="recipe-box">
                 <div class="ms-4">
                   <div class="d-flex align-items-center">
@@ -114,7 +165,7 @@ async function deleteRecipe(recipeId) {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div>
             </div>
