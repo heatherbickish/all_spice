@@ -15,6 +15,7 @@ const props = defineProps({
   recipe: { type: Recipe, required: true }
 })
 
+const account = computed(() => AppState.account)
 const favorites = computed(() => AppState.favorites)
 const foundFavorite = computed(() => favorites.value.find(favorite => props.recipe.id == favorite.recipeId))
 
@@ -60,11 +61,13 @@ async function deleteFavorite(favoriteId) {
   <div class="mb-5 recipe-box" :style="{ backgroundImage: `url(${recipe.img})` }">
     <div class="d-flex align-items-center justify-content-between">
       <h5 class="text-light ms-4 mt-2 rounded-pill glass-box px-3 text-capitalize ">{{ recipe.category }}</h5>
-      <button v-if="!foundFavorite" @click="createFavorite(recipe.id)"
-        class="btn selectable glass-box p-0 px-2 me-2 mt-2"><i
-          class="mdi mdi-heart-outline text-secondary fs-4"></i></button>
-      <button v-else @click="deleteFavorite(foundFavorite.favoriteId)"
-        class="btn selectable glass-box p-0 px-2 me-2 mt-2"><i class="mdi mdi-heart text-danger fs-4"></i></button>
+      <div v-if="account">
+        <button v-if="!foundFavorite" @click="createFavorite(recipe.id)"
+          class="btn selectable glass-box p-0 px-2 me-2 mt-2"><i
+            class="mdi mdi-heart-outline text-secondary fs-4"></i></button>
+        <button v-else @click="deleteFavorite(foundFavorite.favoriteId)"
+          class="btn selectable glass-box p-0 px-2 me-2 mt-2"><i class="mdi mdi-heart text-danger fs-4"></i></button>
+      </div>
     </div>
     <div class="ms-3">
       <h5 role="button" @click="getRecipeById(recipe.id)" data-bs-toggle="modal" data-bs-target="#recipeDetailsModal"
