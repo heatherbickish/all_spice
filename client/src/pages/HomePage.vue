@@ -100,7 +100,7 @@ async function searchRecipes() {
   </section>
 
   <!-- SECTION  menu buttons -->
-  <section class="container">
+  <section v-if="account" class="container">
     <div class="row justify-content-center">
       <div class="col-md-5 text-center menu-box">
         <div class="bg-light rounded py-2 shadow d-flex justify-content-around">

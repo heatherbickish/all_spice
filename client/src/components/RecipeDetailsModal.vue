@@ -186,8 +186,8 @@ async function deleteRecipe(recipeId) {
 
 <style lang="scss" scoped>
 .recipe-box {
-  height: 500px;
-  width: 400px;
+  height: 550px;
+  width: 100%;
   object-fit: cover;
 }
 
