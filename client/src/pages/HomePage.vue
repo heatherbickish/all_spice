@@ -58,7 +58,6 @@ async function getMyFavorites() {
 async function searchRecipes() {
   try {
     await recipesService.searchRecipes(editableSearchQuery.value)
-    editableSearchQuery.value = ''
   }
   catch (error) {
     Pop.meow(error);
