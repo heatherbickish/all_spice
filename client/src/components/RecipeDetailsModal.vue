@@ -77,7 +77,7 @@ async function deleteRecipe(recipeId) {
                   </div>
                 </div>
                 <div class="col-md-6 d-flex flex-column justify-space-around">
-                  <div class="d-flex">
+                  <div class="d-flex align-items-center">
                     <h4 class="text-success" id="recipeDetailsModalLabel">{{ recipe.title }}</h4>
                     <div v-if="recipe?.creatorId == account?.id" class="dropdown">
                       <button class=" btn fs-4 ms-4 dropdown toggle" type="button" data-bs-toggle="dropdown"
